@@ -18,6 +18,12 @@ export default class ProductCrud extends Component {
 
     state = { ...initialState };
 
+    componentWillMount() {
+        axios(baseUrl).then(resp => {
+            this.setState({ list: resp.data });
+        });
+    }
+
     clear() {
         this.setState( { product: initialState.product });
     }
@@ -30,12 +36,12 @@ export default class ProductCrud extends Component {
             .then(resp => {
                 const list = this.getUpdatedList(resp.data);
                 this.setState({ product: initialState.product, list });
-            })
+            });
     }
 
-    getUpdatedList(product) {
+    getUpdatedList(product, add = true) {
         const list = this.state.list.filter(p => p.id !== product.id);
-        list.unshift(product);
+        if (add) list.unshift(product);
         return list;
     }
 
@@ -93,10 +99,60 @@ export default class ProductCrud extends Component {
         )
     }
 
+    load(product) {
+        this.setState({ product });
+    }
+
+    remove(product) {
+        axios.delete(`${baseUrl}/${product.id}`).then(resp => {
+            const list = this.getUpdatedList(product, false);
+            this.setState({ list });
+        });
+    }
+
+    renderTable() {
+        return (
+            <table className="table mt-4">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                        <th>Valor Unitario</th>
+                        <th>Acoes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.renderRows()}
+                </tbody>
+            </table>
+        )
+    }
+
+    renderRows() {
+        return this.state.list.map(product => {
+            return (
+                <tr key={product.id}>
+                    <td>{product.nome}</td>
+                    <td>{product.quantidade}</td>
+                    <td>{product.valorUnit}</td>
+                    <td>
+                        <button className="btn btn-warning" onClick={() => this.load(product)}>
+                            <i className="fa fa-pencil"></i>
+                        </button>
+                        <button className="btn btn-danger ml-2" onClick={() => this.remove(product)}>
+                            <i className="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            );
+        });
+    }
+
     render() {
         return (
             <Main {...headerProps}>
                 {this.renderForm()}
+                {this.renderTable()}
             </Main>
         )
     }
