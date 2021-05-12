@@ -8,7 +8,7 @@ const headerProps = {
     subtitle: 'Cadastro de Produtos: Incluir, Listar, Editar e Excluir!'
 }
 
-const baseUrl = 'http://localhost:3001/produtos';
+const baseUrl = 'http://localhost:5000/product';
 const initialState = {
     product: { nome: '', quantidade: 0, valorUnit: 0},
     list: []
