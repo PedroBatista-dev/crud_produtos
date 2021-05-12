@@ -1,0 +1,22 @@
+{
+  "produtos": [
+    {
+      "id": 1,
+      "nome": "Celular",
+      "quantidade": 10,
+      "valorUnit": 500.2
+    },
+    {
+      "id": 2,
+      "nome": "Tablet",
+      "quantidade": 5,
+      "valorUnit": 200.5
+    },
+    {
+      "nome": "roda",
+      "quantidade": "2",
+      "valorUnit": "50.50",
+      "id": 3
+    }
+  ]
+}
