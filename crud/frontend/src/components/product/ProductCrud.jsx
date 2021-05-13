@@ -8,7 +8,7 @@ const headerProps = {
     subtitle: 'Cadastro de Produtos: Incluir, Listar, Editar e Excluir!'
 }
 
-const baseUrl = 'http://localhost:5000/product';
+const baseUrl = 'http://localhost:3001/Product';
 const initialState = {
     product: { nome: '', quantidade: 0, valorUnit: 0},
     list: []
@@ -34,6 +34,7 @@ export default class ProductCrud extends Component {
         const url = product.id ? `${baseUrl}/${product.id}` : baseUrl;
         axios[method](url, product)
             .then(resp => {
+                console.log(resp);
                 const list = this.getUpdatedList(resp.data);
                 this.setState({ product: initialState.product, list });
             });

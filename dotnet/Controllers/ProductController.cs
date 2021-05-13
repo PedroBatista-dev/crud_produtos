@@ -37,7 +37,7 @@ namespace dotnet.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, Product product)
+        public ActionResult<Product> Update(int id, Product product)
         {
             var existingProduct = ProductService.Get(id);
             if (id != product.Id || existingProduct is null)
@@ -45,7 +45,7 @@ namespace dotnet.Controllers
 
             ProductService.Update(product);           
 
-            return NoContent();
+            return product;
         }
 
         [HttpDelete("{id}")]

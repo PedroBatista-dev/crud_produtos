@@ -27,6 +27,17 @@ namespace dotnet
         {
 
             services.AddControllers();
+            services.AddCors(options => 
+                {
+                    options.AddDefaultPolicy(builder => 
+                        {
+                            builder
+                            .SetIsOriginAllowed((host) => true)
+                            .AllowAnyMethod()
+                            .AllowCredentials()
+                            .AllowAnyHeader();
+                        });
+                });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dotnet", Version = "v1" });
@@ -44,6 +55,8 @@ namespace dotnet
             }
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
