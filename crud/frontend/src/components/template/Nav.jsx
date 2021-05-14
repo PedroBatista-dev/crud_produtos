@@ -8,7 +8,7 @@ export default props =>
             <Link to="/">
                 <i className="fa fa-home"></i> Inicio
             </Link>
-            <Link to="/Product">
+            <Link to="/Produto">
                 <i className="fa fa-dropbox"></i> Produtos
             </Link>
         </nav>
